@@ -1,6 +1,5 @@
 #include <string>
 #include <iostream>
-#include <conio.h>
 #include <algorithm>
 #include <sstream>
 
@@ -32,7 +31,6 @@ int main(int argc, char *argv[])
 
     std::cout << "Thank you!";
 
-    _getch();
     return 0;
 }
 
