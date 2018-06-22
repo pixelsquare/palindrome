@@ -5,4 +5,6 @@
 
 *Palindrome* is a word, phrase, number, or sequence of symbols or elements, whose meaning may be interpreted the same way in either forward or reverse direction. It is just a simple console application to verify palindrome.
 
-[palindrome list]: http://www.palindromelist.net
+You can get a list of palindromes [here].
+
+[here]: http://www.palindromelist.net
