@@ -5,7 +5,7 @@
 
 #if _WIN32
 #include <conio.h>
-#endif;
+#endif
 
 bool isPalindrome(std::string input);
 
@@ -33,7 +33,7 @@ int main(int argc, char *argv[])
 
 #if _WIN32
     _getch();
-#endif;
+#endif
 
     return 0;
 }
@@ -45,15 +45,15 @@ bool isNotAlnum(char c)
 
 bool isPalindrome(std::string input)
 {
-    input.erase(std::remove_if(input.begin(), input.end(), isNotAlnum), input.end());
-    input.erase(std::remove_if(input.begin(), input.end(), std::isspace), input.end());
+    input.erase(remove_if(input.begin(), input.end(), isNotAlnum), input.end());
+    input.erase(remove_if(input.begin(), input.end(), ::isspace), input.end());
 
-    std::transform(input.begin(), input.end(), input.begin(), std::tolower);
+    std::transform(input.begin(), input.end(), input.begin(), ::tolower);
 
     int counter = 0;
     size_t size = input.size();     
 
-    for(int i = 0; i < size / 2; i++)
+    for(size_t i = 0; i < size / 2; i++)
     {
         size_t x = size - i - 1;
 
