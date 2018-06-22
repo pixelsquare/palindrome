@@ -45,8 +45,8 @@ bool isNotAlnum(char c)
 
 bool isPalindrome(std::string input)
 {
-    input.erase(remove_if(input.begin(), input.end(), isNotAlnum), input.end());
-    input.erase(remove_if(input.begin(), input.end(), std::isspace), input.end());
+    input.erase(std::remove_if(input.begin(), input.end(), isNotAlnum), input.end());
+    input.erase(std::remove_if(input.begin(), input.end(), std::isspace), input.end());
 
     std::transform(input.begin(), input.end(), input.begin(), std::tolower);
 
