@@ -1,11 +1,13 @@
 #include <string>
 #include <iostream>
+#include <cctype>
 #include <algorithm>
-#include <sstream>
+
+#if _WIN32
+#include <conio.h>
+#endif;
 
 bool isPalindrome(std::string input);
-std::string removeNonAlphaString(std::string const& input);
-std::string trimWhitespaces(std::string const& str);
 
 int main(int argc, char *argv[])
 {
@@ -18,37 +20,42 @@ int main(int argc, char *argv[])
 
     std::cout << "Please enter a word or a phrase: ";
     std::cin.getline(wordInput, sizeof(wordInput));
+    std::cout << std::endl;
 
-    std::cout << "###############################" << std::endl;
     std::cout << "Result:" << std::endl;
-    std::cout << "###############################" << std::endl;
 
     bool isWordPalindrome = isPalindrome(wordInput);
     std::cout << wordInput << (isWordPalindrome ? " is a PALINDROME!" : " is NOT a PALINDROME!") << std::endl;
 
-    std::cout << "###############################" << std::endl;
     std::cout << std::endl;
 
     std::cout << "Thank you!";
 
+#if _WIN32
+    _getch();
+#endif;
+
     return 0;
+}
+
+bool isNotAlnum(char c)
+{
+    return std::isalnum(c) == 0;
 }
 
 bool isPalindrome(std::string input)
 {
-    input = trimWhitespaces(input);
-    input = removeNonAlphaString(input);
+    input.erase(remove_if(input.begin(), input.end(), isNotAlnum), input.end());
+    input.erase(remove_if(input.begin(), input.end(), std::isspace), input.end());
 
-    std::transform(input.begin(), input.end(), input.begin(), ::tolower);
+    std::transform(input.begin(), input.end(), input.begin(), std::tolower);
 
-    int size = input.size();
-    size = (size % 2 == 0) ? size : size - 1;
-        
     int counter = 0;
+    size_t size = input.size();     
 
     for(int i = 0; i < size / 2; i++)
     {
-        int x = size - i;
+        size_t x = size - i - 1;
 
         if(input[i] == input[x])
         {
@@ -57,35 +64,4 @@ bool isPalindrome(std::string input)
     }
 
     return counter > 0 && counter == size / 2;
-}
-
-std::string removeNonAlphaString(std::string const& input)
-{
-    std::string returnValue = input;
-
-    for(std::string::iterator i = returnValue.begin(); i != returnValue.end(); i++)
-    {
-        if(!isalpha(returnValue.at(i - returnValue.begin())) || isspace(returnValue.at(i - returnValue.begin())))
-        {
-            returnValue.erase(i);
-            i--;
-        }
-    }
-
-    return returnValue;
-}
-
-std::string trimWhitespaces(std::string const& str)
-{
-    std::string returnValue;
-
-    if(str.size() > 0)
-    {
-        size_t startPos = str.find_first_not_of(" ");
-        size_t endPos = str.find_last_not_of(" ");
-
-        returnValue = returnValue.substr(startPos, endPos - startPos + 1);
-    }
-
-    return returnValue;
 }
